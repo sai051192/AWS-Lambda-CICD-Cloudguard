@@ -1,0 +1,28 @@
+  
+version: 0.2
+
+env:
+  secrets-manager:
+    CLOUDGUARD_ID: Cloudguard_API_key:cloudguard_ID 
+    CLOUDGUARD_KEY: Cloudguard_API_key:cloudguard_secret
+
+phases:
+  install:
+    runtime-versions:
+        nodejs: 10
+  build:
+    commands:
+      - npm install time
+      #install Cloudguard CI/CD plugin
+      - npm install -g https://artifactory.app.protego.io/cloudguard-serverless-plugin.tgz
+      - export BUCKET=app2artifactucket
+      #Modify template.yaml to add Cloudguard Runtime Security Layer to the function and output template1.yaml
+      - cloudguard fsp add -t $CLOUDGUARD_ID:$CLOUDGUARD_KEY -C template.yaml --region us-east-1 --output template1.yaml
+      #Packages and stores code artifacts referenced in the template1.yaml in S3 and modifies template1.yaml to reflect the same
+      - aws cloudformation package --template-file template1.yaml --s3-bucket $BUCKET --output-template-file outputtemplate.yaml
+
+artifacts:
+  type: zip
+  files:
+    - template1.yaml
+    - outputtemplate.yaml
