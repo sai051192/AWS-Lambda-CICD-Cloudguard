@@ -1,0 +1,29 @@
+#This is a workflow fie 
+
+name: Cloudguard Proact code-scan
+on:
+  push:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      
+      - uses: actions/checkout@v2
+       
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY }}
+            aws-region: us-east-1
+      
+      - name: Check Point Cloudguard Proact code scan
+        run: |
+              #Install Cloudguard serverless plugin
+              sudo npm install -g https://artifactory.app.protego.io/cloudguard-serverless-plugin.tgz
+              #Scan the template file and its artifacts 
+              cloudguard proact -m template.yaml -t ${{secrets.CLOUDGUARD_ID}}:${{secrets.CLOUDGUARD_SECRET}}
