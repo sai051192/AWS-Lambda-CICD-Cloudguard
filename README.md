@@ -4,7 +4,7 @@
 
 **
 
-This GitHub Repo contains the supporting code and adjoined brief for the video demonstration of 'CICD pipeline for Lambda app - secured by Check Point CloudGuard Serverless' (https://www.youtube.com/watch?v=ViF9dssMTFw). GitHub Actions, AWS CodeBuild, Code Pipeline and CloudFormation are used in the pipeline. CloudGuard Severless Security provides code scanning and runtime application security.
+This GitHub Repo contains the supporting code and adjoined brief for the video demonstration of **'CICD pipeline for Lambda app - secured by Check Point CloudGuard Serverless'** (https://www.youtube.com/watch?v=ViF9dssMTFw). GitHub Actions, AWS CodeBuild, Code Pipeline and CloudFormation are used in the pipeline. CloudGuard Severless Security provides code scanning and runtime application security.
 
 ![](https://github.com/sai051192/AWS-Lambda-CICD-Cloudguard/blob/main/cicdDiagram.jpg?raw=true)
 
